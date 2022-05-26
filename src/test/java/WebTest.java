@@ -270,6 +270,7 @@ public class WebTest {
                                 + "h3[3]")
                 );
 
+        //варианты менее правильных xpath
         //"//*[@id=\"main\"]/h3[1]"
         ///html/body/div/div[3]/h3[1]
 
