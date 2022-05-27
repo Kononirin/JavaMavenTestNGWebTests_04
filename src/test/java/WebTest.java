@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.Color;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -115,7 +116,7 @@ public class WebTest {
         String driverPath = "D:/chromedriver.exe";
         String url = "http://99-bottles-of-beer.net/";
         String expectedResult = "Submit new Language";
-        //expectedResult = expectedResult.toLowerCase();
+        expectedResult = expectedResult.toLowerCase();
 
         System.setProperty(chromeDriver, driverPath);
         WebDriver driver = new ChromeDriver();
@@ -124,14 +125,35 @@ public class WebTest {
 
         WebElement menuSubmitNewLang = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='navigation']"
-                                + "/ul[@id='menu']/li/"
-                                        + "a[@href='/submitnewlanguage.html']")
+                        .xpath("//a[@href='/submitnewlanguage.html']")
                 );
 
         String actualResult = menuSubmitNewLang.getText().toLowerCase();
 
         Assert.assertEquals(actualResult, expectedResult);
+
+        driver.quit();
+    }
+
+    @Test
+    public void testMenuSubmitNewLangShurikG() {
+
+        String chromeDriver = "webdriver.chrome.driver";
+        String driverPath = "D:/chromedriver.exe";
+        String url = "http://99-bottles-of-beer.net/";
+        String expectedResult = "SUBMIT NEW LANGUAGE";
+
+        System.setProperty(chromeDriver, driverPath);
+        WebDriver driver = new ChromeDriver();
+
+        driver.get(url);
+
+        WebElement liLast = driver
+                .findElement(By
+                        .xpath("//ul[@id='menu']/li[last()]")
+                );
+
+        Assert.assertEquals(liLast.getText(), expectedResult);
 
         driver.quit();
     }
@@ -285,10 +307,89 @@ public class WebTest {
         driver.quit();
     }
 
+    @Test
+    public void testNamesOfTeamContains() {
+
+        String chromeDriver = "webdriver.chrome.driver";
+        String driverPath = "D:/chromedriver.exe";
+        String url = "http://www.99-bottles-of-beer.net/team.html";
+        String expectedResultOne = "Oliver Schade";
+        String expectedResultTwo = "Gregor Scheithauer";
+        String expectedResultThree = "Stefan Scheler";
+
+        System.setProperty(chromeDriver, driverPath);
+        WebDriver driver = new ChromeDriver();
+
+        driver.get(url);
+
+        //в данном случае текст достается два раза, что нелогично, лучше так не делать
+        WebElement listOfTeam1 = driver
+                .findElement(By
+                        .xpath("//body/div[@id='wrap']/div[@id='main']/"
+                                + "h3[contains(text(), 'Oliver Schade')]")
+                );
+
+        WebElement listOfTeam2 = driver
+                .findElement(By
+                        .xpath("//body/div[@id='wrap']/div[@id='main']/"
+                                + "h3[contains(text(), 'Gregor Scheithauer')]")
+                );
+
+        WebElement listOfTeam3 = driver
+                .findElement(By
+                        .xpath("//body/div[@id='wrap']/div[@id='main']/"
+                                + "h3[contains(text(), 'Stefan Scheler')]")
+                );
+
+        String actualResultOne = listOfTeam1.getText();
+        String actualResultTwo = listOfTeam2.getText();
+        String actualResultThree = listOfTeam3.getText();
+
+        Assert.assertEquals(actualResultOne, expectedResultOne);
+        Assert.assertEquals(actualResultTwo, expectedResultTwo);
+        Assert.assertEquals(actualResultThree, expectedResultThree);
+
+        driver.quit();
+    }
+
+    @Test
+    public void testNamesOfTeamArray() {
+
+        String chromeDriver = "webdriver.chrome.driver";
+        String driverPath = "D:/chromedriver.exe";
+        String url = "http://www.99-bottles-of-beer.net/team.html";
+        String[] expectedResult = {"Oliver Schade",
+                "Gregor Scheithauer",
+                "Stefan Scheler"};
+
+        System.setProperty(chromeDriver, driverPath);
+        WebDriver driver = new ChromeDriver();
+
+        driver.get(url);
+
+        String[] actualResult = new String[3];
+
+        WebElement listOfTeam1 = driver.findElement(By
+                .xpath("//body//h3[text()='Oliver Schade']"));
+        actualResult[0] = listOfTeam1.getText();
+
+        WebElement listOfTeam2 = driver.findElement(By
+                .xpath("//body//h3[text()='Gregor Scheithauer']"));
+        actualResult[1] = listOfTeam2.getText();
+
+        WebElement listOfTeam3 = driver.findElement(By
+                .xpath("//body//h3[text()='Stefan Scheler']"));
+        actualResult[2] = listOfTeam3.getText();
+
+        Assert.assertEquals(actualResult, expectedResult);
+
+        driver.quit();
+    }
+
     /**
      * TC_11_07 Придумайте и автоматизируйте свой собственный тест кейс
      * на сайте http://www.99-bottles-of-beer.net/
-     *
+     * <p>
      * TC_11_07 Подтвердите, что на странице подменю Privacy пользователь
      * видит правильный электронный адрес
      * 1. Открыть вебсайт на базовой странице
@@ -394,10 +495,237 @@ public class WebTest {
     }
 
     /**
-     *
+     * TC_11_12 Precondition: Если на странице по ссылке
+     * http://www.99-bottles-of-beer.net/submitnewlanguage.html ,
+     * пользователь нажмет кнопку Submit Language,  не заполнив информацию
+     * в обязательных полях, будет показана ошибка с текстом
+     * Error: Precondition failed - Incomplete Input.
+     * Подтвертите, что в тексте ошибки слова Error, Precondition, Incomplete
+     * и Input написаны с большой буквы, а слово failed
+     * написано  с маленькой буквы.
+     * Так же подтвердите, что в тексте ошибки содержатся знаки :, -  и .
+     * Шаги:
+     * 1. Открыть вебсайт на странице
+     * 2. Нажать на кнопку Submit Language
+     * 3. Считать текст ошибки
+     * 4. Подтвердить requirenments
+     * 5. Закрыть браузер
      */
 
+    @Test
+    public void testWordsOfError() {
+
+        String chromeDriver = "webdriver.chrome.driver";
+        String driverPath = "D:/chromedriver.exe";
+        String url = "http://www.99-bottles-of-beer.net/submitnewlanguage.html";
+        String expectedResult1 = "Error";
+        String expectedResult2 = "Precondition";
+        String expectedResult3 = "Incomplete";
+        String expectedResult4 = "Input";
+        String expectedResult5 = "failed";
+        String expectedResult6 = ":";
+        String expectedResult7 = "-";
+        String expectedResult8 = ".";
+
+        System.setProperty(chromeDriver, driverPath);
+        WebDriver driver = new ChromeDriver();
+
+        driver.get(url);
+
+        driver.findElement(By.xpath("//input[@type='submit']")).click();
+
+        WebElement checkSpelling = driver.findElement(
+                By.xpath("//p[@style]"));
+
+        Assert.assertEquals(checkSpelling.getText().substring(0, 5), expectedResult1);
+        Assert.assertEquals(checkSpelling.getText().substring(7, 19), expectedResult2);
+        Assert.assertEquals(checkSpelling.getText().substring(29, 39), expectedResult3);
+        Assert.assertEquals(checkSpelling.getText().substring(40, 45), expectedResult4);
+        Assert.assertEquals(checkSpelling.getText().substring(20, 26), expectedResult5);
+        Assert.assertEquals(checkSpelling.getText().substring(5, 6), expectedResult6);
+        Assert.assertEquals(checkSpelling.getText().substring(27, 28), expectedResult7);
+        Assert.assertEquals(checkSpelling.getText().substring(45),
+                expectedResult8);
+
+        driver.quit();
+    }
+
+    /**
+     * TC_11_13 Подтвердите, что на странице по ссылке
+     * http://www.99-bottles-of-beer.net/submitnewlanguage.html
+     * в первом пункте списка пользователь видит текст:
+     * IMPORTANT: Take your time! The more carefully you fill out this form
+     * (especially the language name and description), the easier it will be for
+     * us and the faster your language will show up on this page.
+     * We don't have the time to mess around with fixing your descriptions etc.
+     * Thanks for your understanding.
+     */
+
+    @Test
+    public void testTextOfWarning() {
+
+        String chromeDriver = "webdriver.chrome.driver";
+        String driverPath = "D:/chromedriver.exe";
+        String url = "http://www.99-bottles-of-beer.net/submitnewlanguage.html";
+        String expectedResult = "IMPORTANT: Take your time! The more carefully you fill "
+                + "out this form (especially the language name and description), "
+                + "the easier it will be for us and the faster your language will "
+                + "show up on this page. We don't have the time to mess around with "
+                + "fixing your descriptions etc. Thanks for your understanding.";
+
+        System.setProperty(chromeDriver, driverPath);
+        WebDriver driver = new ChromeDriver();
+
+        driver.get(url);
+
+        WebElement wordsOfWarning = driver.findElement(
+                By.xpath("//div[@id='main']/ul/li[1]"));
+
+        String actualResult = wordsOfWarning.getText();
+
+        Assert.assertEquals(actualResult, expectedResult);
+
+        driver.quit();
+    }
+
+    /**
+     * TC_11_14 Подтвердите, что нажав на пункт меню Browse Languages, пользователь
+     * увидит таблицу со следующими названиями для первого и второго столбцов:
+     * Language
+     * Author
+     * Шаги:
+     * 1. Открыть вебсайт на базовой странице
+     * 2. Нажать на пункт меню Browse Languages
+     * 3. Считать названия первого и второго столбцов таблицы
+     * 3. Подтвердить, что названия соответствует ожидаемым
+     * 4. Закрыть браузер
+     */
+
+    @Test
+    public void testNameOsFirstAndSecondColumn() {
+
+        String chromeDriver = "webdriver.chrome.driver";
+        String driverPath = "D:/chromedriver.exe";
+        String url = "http://www.99-bottles-of-beer.net";
+        String expectedResultOne = "Language";
+        String expectedResultTwo = "Author";
+
+        System.setProperty(chromeDriver, driverPath);
+        WebDriver driver = new ChromeDriver();
+
+        driver.get(url);
+
+        WebElement menuBrowseLang = driver.findElement(
+                By.xpath("//a[@href='/abc.html']"));
+        menuBrowseLang.click();
+
+        WebElement firstColumn = driver.findElement(
+                By.xpath("//tbody/tr/th[1]"));
+        String actualResultOne = firstColumn.getText();
+
+        WebElement secondColumn = driver.findElement(
+                By.xpath("//tbody/tr/th[2]"));
+        String actualResultTwo = secondColumn.getText();
+
+        Assert.assertEquals(actualResultOne, expectedResultOne);
+        Assert.assertEquals(actualResultTwo, expectedResultTwo);
+
+        driver.quit();
+    }
 
 
+    /**
+     * TC_11_15 Подтвердите, что на странице по базовой ссылке  пользователь НЕ увидит
+     * новые комментарии, если нажмет на пункты меню Top List → New Comments
+     * Шаги: Придумать самостоятельно:
+     * 1. Открыть вебсайт на базовой странице
+     * 2. Нажать на кнопку меню Top List
+     * 3 Нажать на кнопку New Comments
+     * 4. Подтвердить что пользователь не видит нове комментарии
+     * 5. Закрыть браузер
+     */
 
+    @Test
+    public void testNewCommentsList() {
+
+        String chromeDriver = "webdriver.chrome.driver";
+        String driverPath = "D:/chromedriver.exe";
+        String url = "http://www.99-bottles-of-beer.net";
+        String expectedResult = "";
+
+        System.setProperty(chromeDriver, driverPath);
+        WebDriver driver = new ChromeDriver();
+
+        driver.get(url);
+
+        WebElement buttonTopList = driver.findElement(
+                By.xpath("//li/a[@href='/toplist.html']"));
+        buttonTopList.click();
+
+        WebElement buttonNewComments = driver.findElement(
+                By.xpath("//li/a[@href='./newcomments.html']"));
+        buttonNewComments.click();
+
+        WebElement noComments = driver.findElement(
+                By.xpath("//div[@id='main']/p"));
+
+        String actualResult = noComments.getText();
+
+        Assert.assertEquals(actualResult, expectedResult);
+
+        driver.quit();
+    }
+
+    /**
+     * TC_11_21 Подтвердите, что на странице по ссылке
+     * http://www.99-bottles-of-beer.net/submitnewlanguage.html пользователь видит
+     * предупреждение IMPORTANT:, написанное белыми буквами bold шрифтом на красном фоне,
+     * и что все буквы - capital
+     * Шаги:
+     * 1. Открыть вебсайт на странице
+     * 2. Считать слово IMPORTANT: из списка
+     * 3. Подтвердить requirenments
+     * 4. Закрыть браузер
+     */
+
+    @Test
+    public void testWordImportant() {
+
+        String chromeDriver = "webdriver.chrome.driver";
+        String driverPath = "D:/chromedriver.exe";
+        String url = "http://www.99-bottles-of-beer.net/submitnewlanguage.html";
+        String expectedResult = "IMPORTANT:";
+
+        System.setProperty(chromeDriver, driverPath);
+        WebDriver driver = new ChromeDriver();
+
+        driver.get(url);
+
+        String bold = driver.findElement( By.xpath(
+                "//body//div[@id='wrap']/div[@id='main']/" +
+                        "ul/li/span[@style='background-color:red; color: white']/b"))
+                .getTagName();
+
+        Assert.assertEquals(bold, "b");
+
+        WebElement important = driver.findElement(
+                By.xpath("//body//div[@id='wrap']/div[@id='main']/" +
+                        "ul/li/span[@style='background-color:red; color: white']"));
+
+        String actualResult = important.getText();
+
+        Assert.assertEquals(actualResult, expectedResult.toUpperCase());
+
+        String backgrounfColor = important.getCssValue("background-color");
+
+        Assert.assertTrue(Color.fromString("#ff0000").equals(
+                Color.fromString(backgrounfColor)));
+
+        String color = important.getCssValue("color");
+
+        Assert.assertTrue(Color.fromString("#ffffff").equals(
+                Color.fromString(color)));
+
+        driver.quit();
+    }
 }

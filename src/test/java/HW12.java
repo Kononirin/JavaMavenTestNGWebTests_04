@@ -52,6 +52,7 @@ public class HW12 {
     /**
      *TC_12_03 Подтвердите, что в меню BROWSE LANGUAGES существует таблица
      * с заголовками Language, Author, Date, Comments, Rate
+     * Шаги:
      * Открыть базовую страницу
      * Нажать на пункт меню BROWSE LANGUAGES
      * Подтвердить, что существует таблица с заголовками Language, Author,
