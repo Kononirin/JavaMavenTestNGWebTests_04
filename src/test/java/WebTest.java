@@ -34,7 +34,8 @@ public class WebTest {
 
         WebElement menuBrowseLanguages = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='navigation']"
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='navigation']"
                                 + "/ul[@id='menu']/li/a[@href='/abc.html']")
                 );
         //ищем пункт меню нужный нам
@@ -46,14 +47,16 @@ public class WebTest {
 
         WebElement menuStart = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='navigation']"
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='navigation']"
                                 + "/ul[@id='menu']/li/a[@href='/']"));
         menuStart.click();
         //sleep(2000);
 
         WebElement h2 = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='main']/h2"));
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='main']/h2"));
         String actualResult = h2.getText();
         //sleep(2000);
 
@@ -87,7 +90,8 @@ public class WebTest {
 
         WebElement titleUpperRightCorner = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='header']/h1")
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='header']/h1")
                 );
 
 
@@ -125,7 +129,8 @@ public class WebTest {
 
         WebElement menuSubmitNewLang = driver
                 .findElement(By
-                        .xpath("//a[@href='/submitnewlanguage.html']")
+                        .xpath("//a[@href='/"
+                                + "submitnewlanguage.html']")
                 );
 
         String actualResult = menuSubmitNewLang.getText().toLowerCase();
@@ -184,8 +189,8 @@ public class WebTest {
 
         WebElement menuSubmitNewLang = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='navigation']"
-                                + "/ul[@id='menu']"
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='navigation']/ul[@id='menu']"
                                 + "/li/a[@href='/submitnewlanguage.html']")
                 );
 
@@ -193,8 +198,8 @@ public class WebTest {
 
         WebElement subtitleSubmitNewLang = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='navigation']/"
-                                + "ul[@id='submenu']/"
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='navigation']/ul[@id='submenu']/"
                                 + "li/a[@href='./submitnewlanguage.html']")
                 );
 
@@ -231,7 +236,8 @@ public class WebTest {
 
         WebElement submenuFirstSubtitle = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='navigation']/"
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='navigation']/"
                                 + "ul[@id='submenu']/li/a[@href='0.html']")
                 );
 
@@ -276,20 +282,20 @@ public class WebTest {
 
         WebElement listOfTeam1 = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='main']/"
-                                + "h3[1]")
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='main']/h3[1]")
                 );
 
         WebElement listOfTeam2 = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='main']/"
-                                + "h3[2]")
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='main']/h3[2]")
                 );
 
         WebElement listOfTeam3 = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='main']/"
-                                + "h3[3]")
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='main']/h3[3]")
                 );
 
         //варианты менее правильных xpath
@@ -322,23 +328,27 @@ public class WebTest {
 
         driver.get(url);
 
-        //в данном случае текст достается два раза, что нелогично, лучше так не делать
+        //в данном случае текст достается два раза, что нелогично,
+        // лучше так не делать
         WebElement listOfTeam1 = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='main']/"
-                                + "h3[contains(text(), 'Oliver Schade')]")
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='main']/h3[contains(text(), "
+                                + "'Oliver Schade')]")
                 );
 
         WebElement listOfTeam2 = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='main']/"
-                                + "h3[contains(text(), 'Gregor Scheithauer')]")
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='main']/h3[contains(text(), "
+                                + "'Gregor Scheithauer')]")
                 );
 
         WebElement listOfTeam3 = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='main']/"
-                                + "h3[contains(text(), 'Stefan Scheler')]")
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='main']/h3[contains(text(), "
+                                + "'Stefan Scheler')]")
                 );
 
         String actualResultOne = listOfTeam1.getText();
@@ -374,7 +384,8 @@ public class WebTest {
         actualResult[0] = listOfTeam1.getText();
 
         WebElement listOfTeam2 = driver.findElement(By
-                .xpath("//body//h3[text()='Gregor Scheithauer']"));
+                .xpath("//body//h3[text()=" +
+                        "'Gregor Scheithauer']"));
         actualResult[1] = listOfTeam2.getText();
 
         WebElement listOfTeam3 = driver.findElement(By
@@ -414,8 +425,8 @@ public class WebTest {
 
         WebElement submenuPrivacy = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='navigation']/"
-                                + "ul[@id='submenu']/"
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='navigation']/ul[@id='submenu']/"
                                 + "li/a[@href='impressum.html']")
                 );
 
@@ -423,7 +434,8 @@ public class WebTest {
 
         WebElement emailAddress = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='main']/p")
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='main']/p")
                 );
 
         String actualResult = emailAddress.getText();
@@ -464,8 +476,8 @@ public class WebTest {
 
         WebElement buttonSubmitLang = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='main']/"
-                                + "form[@id='addlanguage']/p/"
+                        .xpath("//body/div[@id='wrap']"
+                                + "/div[@id='main']/form[@id='addlanguage']/p/"
                                 + "input[@type='submit']")
                 );
 
@@ -473,10 +485,11 @@ public class WebTest {
 
         WebElement styleOfError = driver
                 .findElement(By
-                        .xpath("//body/div[@id='wrap']/div[@id='main']/"
-                                + "p[@style='border: 1px solid red; "
-                                + "background-color: #ffe0e0; padding: 5px; "
-                                + "margin: 5px 10px 5px 10px;']/b/u")
+                        .xpath("//body/div[@id='wrap']/"
+                                + "div[@id='main']/p[@style='border: 1px "
+                                + "solid red; background-color: #ffe0e0; "
+                                + "padding: 5px; margin: 5px 10px 5px 10px;']"
+                                + "/b/u")
                 );
 
         WebElement textOfError = driver
@@ -532,18 +545,26 @@ public class WebTest {
 
         driver.get(url);
 
-        driver.findElement(By.xpath("//input[@type='submit']")).click();
+        driver.findElement(By.xpath("//input[@type='submit']"))
+                .click();
 
         WebElement checkSpelling = driver.findElement(
                 By.xpath("//p[@style]"));
 
-        Assert.assertEquals(checkSpelling.getText().substring(0, 5), expectedResult1);
-        Assert.assertEquals(checkSpelling.getText().substring(7, 19), expectedResult2);
-        Assert.assertEquals(checkSpelling.getText().substring(29, 39), expectedResult3);
-        Assert.assertEquals(checkSpelling.getText().substring(40, 45), expectedResult4);
-        Assert.assertEquals(checkSpelling.getText().substring(20, 26), expectedResult5);
-        Assert.assertEquals(checkSpelling.getText().substring(5, 6), expectedResult6);
-        Assert.assertEquals(checkSpelling.getText().substring(27, 28), expectedResult7);
+        Assert.assertEquals(checkSpelling.getText().substring(0, 5),
+                expectedResult1);
+        Assert.assertEquals(checkSpelling.getText().substring(7, 19),
+                expectedResult2);
+        Assert.assertEquals(checkSpelling.getText().substring(29, 39),
+                expectedResult3);
+        Assert.assertEquals(checkSpelling.getText().substring(40, 45),
+                expectedResult4);
+        Assert.assertEquals(checkSpelling.getText().substring(20, 26),
+                expectedResult5);
+        Assert.assertEquals(checkSpelling.getText().substring(5, 6),
+                expectedResult6);
+        Assert.assertEquals(checkSpelling.getText().substring(27, 28),
+                expectedResult7);
         Assert.assertEquals(checkSpelling.getText().substring(45),
                 expectedResult8);
 
@@ -567,11 +588,12 @@ public class WebTest {
         String chromeDriver = "webdriver.chrome.driver";
         String driverPath = "D:/chromedriver.exe";
         String url = "http://www.99-bottles-of-beer.net/submitnewlanguage.html";
-        String expectedResult = "IMPORTANT: Take your time! The more carefully you fill "
-                + "out this form (especially the language name and description), "
-                + "the easier it will be for us and the faster your language will "
-                + "show up on this page. We don't have the time to mess around with "
-                + "fixing your descriptions etc. Thanks for your understanding.";
+        String expectedResult = "IMPORTANT: Take your time! The more carefully"
+                + " you fill out this form (especially the language name and "
+                + "description), the easier it will be for us and the faster "
+                + "your language will show up on this page. We don't have the "
+                + "time to mess around with fixing your descriptions etc. "
+                + "Thanks for your understanding.";
 
         System.setProperty(chromeDriver, driverPath);
         WebDriver driver = new ChromeDriver();
@@ -589,8 +611,9 @@ public class WebTest {
     }
 
     /**
-     * TC_11_14 Подтвердите, что нажав на пункт меню Browse Languages, пользователь
-     * увидит таблицу со следующими названиями для первого и второго столбцов:
+     * TC_11_14 Подтвердите, что нажав на пункт меню Browse Languages,
+     * пользователь увидит таблицу со следующими названиями для первого
+     * и второго столбцов:
      * Language
      * Author
      * Шаги:
@@ -635,8 +658,9 @@ public class WebTest {
 
 
     /**
-     * TC_11_15 Подтвердите, что на странице по базовой ссылке  пользователь НЕ увидит
-     * новые комментарии, если нажмет на пункты меню Top List → New Comments
+     * TC_11_15 Подтвердите, что на странице по базовой ссылке  пользователь
+     * НЕ увидит новые комментарии, если нажмет на пункты меню
+     * Top List → New Comments
      * Шаги: Придумать самостоятельно:
      * 1. Открыть вебсайт на базовой странице
      * 2. Нажать на кнопку меню Top List
@@ -678,9 +702,9 @@ public class WebTest {
 
     /**
      * TC_11_21 Подтвердите, что на странице по ссылке
-     * http://www.99-bottles-of-beer.net/submitnewlanguage.html пользователь видит
-     * предупреждение IMPORTANT:, написанное белыми буквами bold шрифтом на красном фоне,
-     * и что все буквы - capital
+     * http://www.99-bottles-of-beer.net/submitnewlanguage.html пользователь
+     * видит предупреждение IMPORTANT:, написанное белыми буквами bold
+     * шрифтом на красном фоне, и что все буквы - capital
      * Шаги:
      * 1. Открыть вебсайт на странице
      * 2. Считать слово IMPORTANT: из списка
@@ -702,15 +726,17 @@ public class WebTest {
         driver.get(url);
 
         String bold = driver.findElement( By.xpath(
-                "//body//div[@id='wrap']/div[@id='main']/" +
-                        "ul/li/span[@style='background-color:red; color: white']/b"))
+                "//body//div[@id='wrap']/div[@id='main']"
+                        + "/ul/li/span[@style='background-color:red; color: "
+                        + "white']/b"))
                 .getTagName();
 
         Assert.assertEquals(bold, "b");
 
         WebElement important = driver.findElement(
-                By.xpath("//body//div[@id='wrap']/div[@id='main']/" +
-                        "ul/li/span[@style='background-color:red; color: white']"));
+                By.xpath("//body//div[@id='wrap']/"
+                        + "div[@id='main']/ul/li/span[@style='background-color:"
+                        + "red; color: white']"));
 
         String actualResult = important.getText();
 
